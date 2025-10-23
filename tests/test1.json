@@ -1,0 +1,59 @@
+{
+    "version": "1.0",
+    "input": {
+        "source": "../samples/anon.png"
+    },
+    "output": {
+        "destination": "../temp/test1_output.png"
+    },
+    "operations": [
+        {
+            "type": "resize",
+            "width": 800,
+            "height": 600,
+            "filter": "lanczos3"
+        },
+        {
+            "type": "filter",
+            "name": "grain",
+            "intensity": 0.3
+        },
+        {
+            "type": "filter",
+            "name": "blur",
+            "radius": 2.0
+        },
+        {
+            "type": "filter",
+            "name": "motion_blur",
+            "angle": 45.0,
+            "distance": 10.0
+        },
+        {
+            "type": "filter",
+            "name": "double_vision",
+            "offset_x": 5,
+            "offset_y": 0,
+            "opacity": 0.5
+        },
+        {
+            "type": "text",
+            "content": "Едрен батон",
+            "font": "path/to/font.ttf",
+            "size": 36,
+            "color": "#FFFFFF",
+            "x": 50,
+            "y": 100,
+            "stroke": {
+                "color": "#000000",
+                "width": 2
+            },
+            "shadow": {
+                "color": "#00000080",
+                "blur": 4,
+                "offset_x": 2,
+                "offset_y": 2
+            }
+        }
+    ]
+}
