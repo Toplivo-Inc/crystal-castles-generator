@@ -1,3 +1,4 @@
+// src/config.rs
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 
@@ -41,16 +42,7 @@ pub enum Operation {
     },
     
     #[serde(rename = "filter")]
-    Filter {
-        name: String,
-        intensity: Option<f32>,
-        radius: Option<f32>,
-        angle: Option<f32>,
-        distance: Option<f32>,
-        offset_x: Option<i32>,
-        offset_y: Option<i32>,
-        opacity: Option<f32>,
-    },
+    Filter(FilterOperation),
     
     #[serde(rename = "text")]
     Text {
@@ -62,6 +54,55 @@ pub enum Operation {
         y: i32,
         stroke: Option<Stroke>,
         shadow: Option<Shadow>,
+    },
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(tag = "name")]
+pub enum FilterOperation {
+    #[serde(rename = "grain")]
+    Grain {
+        intensity: f32,
+    },
+    
+    #[serde(rename = "blur")]
+    Blur {
+        radius: f32,
+    },
+    
+    #[serde(rename = "double_vision")]
+    DoubleVision {
+        offset_x: i32,
+        offset_y: i32,
+        opacity: f32,
+    },
+    
+    #[serde(rename = "vignette")]
+    Vignette {
+        intensity: f32,
+    },
+    
+    #[serde(rename = "sepia")]
+    Sepia,
+    
+    #[serde(rename = "brightness")]
+    Brightness {
+        value: f32,
+    },
+    
+    #[serde(rename = "contrast")]
+    Contrast {
+        value: f32,
+    },
+    
+    #[serde(rename = "saturation")]
+    Saturation {
+        value: f32,
+    },
+    
+    #[serde(rename = "hue_rotate")]
+    HueRotate {
+        degrees: f32,
     },
 }
 
