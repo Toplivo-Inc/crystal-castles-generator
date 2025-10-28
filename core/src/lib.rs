@@ -2,13 +2,13 @@
 #![allow(unused_variables)]
 #![allow(dead_code)]
 
-mod config;
-mod processor;
+pub mod config;
+pub mod processor;
 
-use std::fs;
-use std::cmp;
 use image::ImageReader;
 use macroquad::{miniquad::window::set_window_size, prelude::*};
+use std::cmp;
+use std::fs;
 
 pub trait FromAnyImageFile {
     fn from_any_image_file(fname: &str) -> Texture2D;
@@ -30,7 +30,6 @@ impl FromAnyImageFile for Texture2D {
 
 #[macroquad::main("window 1")]
 async fn main() {
-
     let config_content = fs::read_to_string("tests/test1.json").unwrap();
     let config: config::Config = serde_json::from_str(&config_content).unwrap();
     let processed_image = processor::ImageProcessor::process(&config).unwrap();
@@ -38,15 +37,18 @@ async fn main() {
 
     let texture1 = Texture2D::from_any_image_file("samples/anon.png");
     let texture2 = Texture2D::from_any_image_file("temp/test1_output.png");
-    
-    set_window_size(texture1.width() as u32 + texture2.width() as u32, cmp::max(texture1.height() as u32, texture2.height() as u32));
-    
+
+    set_window_size(
+        texture1.width() as u32 + texture2.width() as u32,
+        cmp::max(texture1.height() as u32, texture2.height() as u32),
+    );
+
     loop {
         clear_background(WHITE);
-        
+
         draw_texture(&texture1, 0.0, 0.0, WHITE);
         draw_texture(&texture2, texture1.width(), 0.0, WHITE);
-        
+
         next_frame().await;
     }
 }

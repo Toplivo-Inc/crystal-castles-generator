@@ -1,4 +1,3 @@
-// src/config.rs
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 
@@ -31,7 +30,7 @@ pub enum Operation {
         height: u32,
         filter: Option<String>,
     },
-    
+
     #[serde(rename = "overlay")]
     Overlay {
         image: PathBuf,
@@ -40,10 +39,10 @@ pub enum Operation {
         opacity: Option<f32>,
         blend_mode: Option<String>,
     },
-    
+
     #[serde(rename = "filter")]
     Filter(FilterOperation),
-    
+
     #[serde(rename = "text")]
     Text {
         content: String,
@@ -61,49 +60,35 @@ pub enum Operation {
 #[serde(tag = "name")]
 pub enum FilterOperation {
     #[serde(rename = "grain")]
-    Grain {
-        intensity: f32,
-    },
-    
+    Grain { intensity: f32 },
+
     #[serde(rename = "blur")]
-    Blur {
-        radius: f32,
-    },
-    
+    Blur { radius: f32 },
+
     #[serde(rename = "double_vision")]
     DoubleVision {
         offset_x: i32,
         offset_y: i32,
         opacity: f32,
     },
-    
+
     #[serde(rename = "vignette")]
-    Vignette {
-        intensity: f32,
-    },
-    
+    Vignette { intensity: f32 },
+
     #[serde(rename = "sepia")]
     Sepia,
-    
+
     #[serde(rename = "brightness")]
-    Brightness {
-        value: f32,
-    },
-    
+    Brightness { value: f32 },
+
     #[serde(rename = "contrast")]
-    Contrast {
-        value: f32,
-    },
-    
+    Contrast { value: f32 },
+
     #[serde(rename = "saturation")]
-    Saturation {
-        value: f32,
-    },
-    
+    Saturation { value: f32 },
+
     #[serde(rename = "hue_rotate")]
-    HueRotate {
-        degrees: f32,
-    },
+    HueRotate { degrees: f32 },
 }
 
 #[derive(Debug, Serialize, Deserialize)]

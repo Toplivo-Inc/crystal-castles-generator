@@ -1,2 +1,5 @@
-/target
-/temp
+target
+tests/*
+!tests/samples/.gitkeep
+!tests/configs/.gitkeep
+!tests/outputs/.gitkeep
