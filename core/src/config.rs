@@ -22,16 +22,13 @@ pub struct OutputConfig {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(tag = "type", rename_all = "snake_case")]
 pub enum Operation {
-    #[serde(rename = "resize")]
     Resize {
         width: u32,
         height: u32,
         filter: Option<String>,
     },
-
-    #[serde(rename = "overlay")]
     Overlay {
         image: PathBuf,
         x: i32,
@@ -39,11 +36,7 @@ pub enum Operation {
         opacity: Option<f32>,
         blend_mode: Option<String>,
     },
-
-    #[serde(rename = "filter")]
     Filter(FilterOperation),
-
-    #[serde(rename = "text")]
     Text {
         content: String,
         font: PathBuf,
@@ -57,37 +50,20 @@ pub enum Operation {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(tag = "name")]
+#[serde(tag = "name", rename_all = "snake_case")]
 pub enum FilterOperation {
-    #[serde(rename = "grain")]
     Grain { intensity: f32 },
-
-    #[serde(rename = "blur")]
     Blur { radius: f32 },
-
-    #[serde(rename = "double_vision")]
     DoubleVision {
         offset_x: i32,
         offset_y: i32,
         opacity: f32,
     },
-
-    #[serde(rename = "vignette")]
     Vignette { intensity: f32 },
-
-    #[serde(rename = "sepia")]
     Sepia,
-
-    #[serde(rename = "brightness")]
     Brightness { value: f32 },
-
-    #[serde(rename = "contrast")]
     Contrast { value: f32 },
-
-    #[serde(rename = "saturation")]
     Saturation { value: f32 },
-
-    #[serde(rename = "hue_rotate")]
     HueRotate { degrees: f32 },
 }
 

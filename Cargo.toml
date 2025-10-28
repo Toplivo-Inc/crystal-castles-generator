@@ -1,3 +1,5 @@
 [workspace]
 resolver = "3"
-members = ["core", "http-server"]
+members = ["core", "http-server", "test-gui"]
+default-members = ["http-server"]
+default-run = "http-server"
