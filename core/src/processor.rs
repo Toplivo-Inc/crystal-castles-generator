@@ -2,7 +2,7 @@ use crate::config::{Config, FilterOperation, Operation, Shadow, Stroke};
 use anyhow::Result;
 use image::{DynamicImage, ImageFormat, Rgba, imageops::colorops};
 use imageproc::drawing;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 pub struct ImageProcessor;
 
@@ -363,8 +363,7 @@ impl ImageProcessor {
     ) -> Result<DynamicImage> {
         let mut result = img.to_rgba8();
 
-        return Ok(DynamicImage::ImageRgba8(result)); // TODO: implement text, nw it doesnt work at all
-
+        let font_path = Path::new("assets/fonts/").join(font_path);
         let font_data = std::fs::read(font_path)?;
         let font = ab_glyph::FontArc::try_from_vec(font_data)?;
 

@@ -6,7 +6,7 @@ use async_native_tls::TlsAcceptor;
 use http_body_util::Full;
 use hyper::body::{Bytes, Incoming};
 use hyper::service::service_fn;
-use hyper::{Method, Request, Response};
+use hyper::{Method, Request, Response, StatusCode};
 use macro_rules_attribute::apply;
 use smol::{Async, Executor};
 use smol_hyper::rt::{FuturesIo, SmolTimer};
@@ -22,7 +22,11 @@ async fn serve(req: Request<Incoming>) -> Result<Response<Full<Bytes>>> {
     println!("Serving {}", req.uri());
     match (req.method(), req.uri().to_string().as_str()) {
         (&Method::POST, "/api/v1/generate") => return handlers::generate(req).await,
-        _ => Ok(Response::new(Full::new(Bytes::from("Not found")))),
+        _ => {
+            let mut res = Response::new(Full::new(Bytes::new()));
+            *res.status_mut() = StatusCode::NOT_FOUND;
+            Ok(res)
+        },
     }
 }
 
